@@ -15,7 +15,7 @@ resource "random_string" "resource_group_name_suffix" {
 }
 
 resource "azurerm_resource_group" "test_group" {
-  name     = "${module.terraform-azurerm-naming.resource_group.slug}-${module.terraform-azurerm-naming.event_hub.slug}-minimal-test-${random_string.resource_group_name_suffix.result}"
+  name     = module.terraform-azurerm-naming.resource_group.name_unique
   location = "uksouth"
 }
 

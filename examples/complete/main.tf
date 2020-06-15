@@ -12,7 +12,7 @@ module "naming" {
 }
 
 resource "azurerm_resource_group" "test_group" {
-  name     = "${module.naming.resource_group.slug}-${module.naming.event_hub.slug}-max-test-${local.unique_name_stub}"
+  name     = "${module.naming.resource_group.slug}-${module.naming.eventhub.slug}-max-test-${local.unique_name_stub}"
   location = "uksouth"
 }
 
@@ -25,12 +25,12 @@ module "terraform-azurerm-event-hub" {
   capacity            = "2"
   event_hubs = {
     "eh-test" = {
-      name              = "${module.naming.event_hub.slug}-${local.unique_name_stub}"
+      name              = "${module.naming.eventhub.slug}-${local.unique_name_stub}"
       partition_count   = 1
       message_retention = 1
       authorisation_rules = {
         "ehra-default" = {
-          name   = "${module.naming.event_hub_authorization_rule.slug}-${local.unique_name_stub}"
+          name   = "${module.naming.eventhub_authorization_rule.slug}-${local.unique_name_stub}"
           listen = true
           send   = false
           manage = false

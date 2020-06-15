@@ -12,7 +12,7 @@ module "naming" {
 }
 
 resource "azurerm_resource_group" "test_group" {
-  name     = "${module.naming.resource_group.slug}-${module.naming.event_hub.slug}-min-test-${local.unique_name_stub}"
+  name     = "${module.naming.resource_group.slug}-${module.naming.eventhub.slug}-min-test-${local.unique_name_stub}"
   location = "uksouth"
 }
 

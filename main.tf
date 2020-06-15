@@ -14,11 +14,11 @@ locals {
     for event_hub_key, event_hub in var.event_hubs : [
       for authorisation_rule_key, authorisation_rule in event_hub.authorisation_rules : {
         event_hub_key               = event_hub_key
-        event_hub_name              = length(event_hub.name) == 0 ? module.naming.event_hub.name_unique : event_hub.name
+        event_hub_name              = length(event_hub.name) == 0 ? module.naming.eventhub.name_unique : event_hub.name
         event_hub_partition_count   = event_hub.partition_count
         event_hub_message_retention = event_hub.message_retention
         authorisation_rule_key      = authorisation_rule_key
-        authorisation_rule_name     = length(authorisation_rule.name) == 0 ? module.naming.event_hub_authorization_rule.name_unique : authorisation_rule.name
+        authorisation_rule_name     = length(authorisation_rule.name) == 0 ? module.naming.eventhub_authorization_rule.name_unique : authorisation_rule.name
         listen                      = authorisation_rule.listen
         send                        = authorisation_rule.send
         manage                      = authorisation_rule.manage
@@ -30,7 +30,7 @@ locals {
 }
 
 resource "azurerm_eventhub_namespace" "namespace" {
-  name                = module.naming.event_hub_namespace.name_unique
+  name                = module.naming.eventhub_namespace.name_unique
   resource_group_name = data.azurerm_resource_group.base.name
   location            = data.azurerm_resource_group.base.location
   sku                 = var.sku

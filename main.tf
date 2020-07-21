@@ -31,15 +31,15 @@ locals {
 
 resource "azurerm_eventhub_namespace" "namespace" {
   name                = module.naming.eventhub_namespace.name_unique
-  resource_group_name = data.azurerm_resource_group.base.name
-  location            = data.azurerm_resource_group.base.location
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
   sku                 = var.sku
   capacity            = var.capacity
 }
 
 resource "azurerm_eventhub" "eventhubs" {
   for_each            = local.event_hub_to_auth_rule_mapping
-  resource_group_name = data.azurerm_resource_group.base.name
+  resource_group_name = var.resource_group_name
   name                = each.value.event_hub_name
   namespace_name      = azurerm_eventhub_namespace.namespace.name
   partition_count     = each.value.event_hub_partition_count
@@ -48,7 +48,7 @@ resource "azurerm_eventhub" "eventhubs" {
 
 resource "azurerm_eventhub_authorization_rule" "authorisation_rule" {
   for_each            = local.event_hub_to_auth_rule_mapping
-  resource_group_name = data.azurerm_resource_group.base.name
+  resource_group_name = var.resource_group_name
   name                = each.value.authorisation_rule_name
   namespace_name      = azurerm_eventhub_namespace.namespace.name
   eventhub_name       = each.value.event_hub_name

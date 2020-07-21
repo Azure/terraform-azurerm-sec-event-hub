@@ -1,7 +1,12 @@
 #Required variables
 variable "resource_group_name" {
   type        = string
-  description = "The Resource Group in which to put the Storage Accounts."
+  description = "The Resource Group name in which to put the Storage Accounts."
+}
+
+variable "resource_group_location" {
+  type        = string
+  description = "The Resource Group location in which to put the Storage Accounts."
 }
 
 #Optional variables

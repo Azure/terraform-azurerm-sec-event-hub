@@ -39,7 +39,7 @@ resource "azurerm_eventhub_namespace" "namespace" {
 
 resource "azurerm_eventhub" "eventhubs" {
   for_each            = local.event_hub_to_auth_rule_mapping
-  resource_group_name = var.resource_group_location
+  resource_group_name = var.resource_group_name
   name                = each.value.event_hub_name
   namespace_name      = azurerm_eventhub_namespace.namespace.name
   partition_count     = each.value.event_hub_partition_count
@@ -48,7 +48,7 @@ resource "azurerm_eventhub" "eventhubs" {
 
 resource "azurerm_eventhub_authorization_rule" "authorisation_rule" {
   for_each            = local.event_hub_to_auth_rule_mapping
-  resource_group_name = var.resource_group_location
+  resource_group_name = var.resource_group_name
   name                = each.value.authorisation_rule_name
   namespace_name      = azurerm_eventhub_namespace.namespace.name
   eventhub_name       = each.value.event_hub_name

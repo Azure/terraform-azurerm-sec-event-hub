@@ -17,12 +17,13 @@ resource "azurerm_resource_group" "test_group" {
 }
 
 module "terraform-azurerm-event-hub" {
-  source              = "../../"
-  resource_group_name = azurerm_resource_group.test_group.name
-  prefix              = [local.unique_name_stub]
-  suffix              = [local.unique_name_stub]
-  sku                 = "Basic"
-  capacity            = "2"
+  source                  = "../../"
+  resource_group_name     = azurerm_resource_group.test_group.name
+  resource_group_location = azurerm_resource_group.test_group.location
+  prefix                  = [local.unique_name_stub]
+  suffix                  = [local.unique_name_stub]
+  sku                     = "Basic"
+  capacity                = "2"
   event_hubs = {
     "eh-test" = {
       name              = "${module.naming.eventhub.slug}-${local.unique_name_stub}"
